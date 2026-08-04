@@ -29,11 +29,22 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 ## Demo local
 
+Paso a paso completo en [`Comandos.md`](Comandos.md).
+
 ```bash
-cd Proyecto-Vision-YOLO26
+git clone https://github.com/KevinInoCol/MLOps-Proyecto-Vision-YOLO26.git
+cd MLOps-Proyecto-Vision-YOLO26/Proyecto-Vision-YOLO26
 uv sync
 uv run jupyter notebook server.ipynb
 ```
+
+> **Importante:** el `cd` no es opcional. Cada carpeta tiene su propio
+> `pyproject.toml` y la raiz del repo no tiene ninguno, asi que `uv sync` ahi
+> falla con `No pyproject.toml found`.
+>
+> Y si usas VS Code, abre la carpeta `Proyecto-Vision-YOLO26`, **no la raiz del
+> repositorio**: VS Code solo detecta el `.venv` en la raiz del workspace, asi
+> que de lo contrario el entorno no aparece en "Select Kernel".
 
 `uv sync` crea el entorno con Python 3.12 e instala las versiones exactas de
 `uv.lock` — identicas en macOS, Linux y Windows.
