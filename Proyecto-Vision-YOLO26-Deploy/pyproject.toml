@@ -1,0 +1,31 @@
+[project]
+name = "proyecto-vision-yolo26-deploy"
+version = "0.1.0"
+description = "API de deteccion de objetos con YOLO26, desplegada en Cloud Run"
+requires-python = "==3.12.*"
+
+dependencies = [
+    "torch",
+    "torchvision",
+    "ultralytics",
+    "opencv-python",
+    "fastapi==0.103.2",
+    "uvicorn==0.23.2",
+    "python-multipart==0.0.6",
+]
+
+[tool.uv]
+# No es un paquete instalable, solo un entorno de aplicacion.
+package = false
+
+# El indice de PyTorch se usa SOLO para torch/torchvision (explicit = true).
+# Asi evitamos que uv busque fastapi u opencv ahi, que era el defecto
+# del "--extra-index-url" global del requirements.txt anterior.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+torchvision = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

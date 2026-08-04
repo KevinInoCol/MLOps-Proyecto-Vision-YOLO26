@@ -1,0 +1,35 @@
+[project]
+name = "proyecto-vision-yolo26"
+version = "0.1.0"
+description = "Demo local de deteccion de objetos con YOLO26 (notebook + FastAPI)"
+requires-python = "==3.12.*"
+
+dependencies = [
+    "torch",
+    "torchvision",
+    "ultralytics",
+    "opencv-python",
+    "fastapi==0.103.2",
+    "uvicorn==0.23.2",
+    "python-multipart==0.0.6",
+    # Para el notebook de la clase
+    "nest-asyncio==1.5.8",
+    "ipython",
+    "jupyter",
+    "matplotlib",
+]
+
+[tool.uv]
+package = false
+
+# Mismo indice que en el proyecto de despliegue, para que local y contenedor
+# resuelvan torch desde la misma fuente. En macOS igual llega el build con
+# soporte MPS; en Linux llega el build CPU sin las librerias CUDA.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+torchvision = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

@@ -1,0 +1,39 @@
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=True
+
+# Evita que torch sobre-suscriba hilos: en Cloud Run ve los cores del host,
+# no el limite del contenedor. Debe coincidir con el cpu de service.yaml.
+ENV OMP_NUM_THREADS=2
+ENV YOLO_CONFIG_DIR=/tmp/ultralytics
+
+# Binario de uv, con version fijada (no ":latest") para que el build
+# sea reproducible tambien en la herramienta, no solo en las dependencias.
+COPY --from=ghcr.io/astral-sh/uv:0.10.9 /uv /bin/uv
+
+WORKDIR /usr/src/app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Capa de dependencias primero: Docker la cachea mientras uv.lock no cambie,
+# asi editar src/main.py no reinstala torch.
+# --frozen falla el build si uv.lock esta desincronizado de pyproject.toml.
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen
+
+# Usar el interprete del entorno que acaba de crear uv
+ENV PATH="/usr/src/app/.venv/bin:$PATH"
+
+# Hornea los pesos en la imagen (~5 MB + ~19 MB) en lugar de bajarlos
+# en el primer request. Sin esto, cada instancia nueva de Cloud Run
+# depende de GitHub para poder responder.
+RUN python -c "from ultralytics import YOLO; YOLO('yolo26n.pt'); YOLO('yolo26s.pt')"
+
+COPY . .
+
+EXPOSE 4000
+
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "4000", "--proxy-headers"]

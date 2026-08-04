@@ -1,0 +1,22 @@
+{
+    "name": "Vision-YOLO26-Deploy-Inofuente-Devcontainer",
+    "build": { "dockerfile": "../Dockerfile.dev" },
+    "customizations": {
+      "vscode": {
+          "extensions": [
+              "ms-python.python",
+              "ms-python.vscode-pylance",
+              "ms-python.black-formatter",
+              "ms-python.debugpy",
+              "ms-azuretools.vscode-docker"
+          ],
+          "settings": {
+              "python.defaultInterpreterPath": "/opt/venv/bin/python"
+          }
+      }
+    },
+    "forwardPorts": ["5678:5678", "4000:4000"],
+    "workspaceMount": "source=${localWorkspaceFolder},target=/ws/code,type=bind,consistency=delegated",
+    "workspaceFolder": "/ws/code",
+    "postCreateCommand": "uv sync --frozen"
+}

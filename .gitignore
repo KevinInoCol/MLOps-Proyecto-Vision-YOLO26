@@ -1,0 +1,40 @@
+# ============================================================================
+# LISTA BLANCA: este repo vive dentro de una carpeta de trabajo mas grande,
+# asi que ignoramos todo por defecto y habilitamos solo lo que pertenece aqui.
+# Robusto ante carpetas nuevas o renombradas (ej: Proyecto-Vision-YoloV3).
+# ============================================================================
+/*
+
+!/.gitignore
+!/README.md
+!/Proyecto-Vision-YOLO26/
+!/Proyecto-Vision-YOLO26-Deploy/
+
+# ============================================================================
+# Y dentro de esas dos carpetas, lo que tampoco se versiona:
+# ============================================================================
+
+# Entornos virtuales: el .venv local pesa ~1.2 GB (torch).
+# Se reconstruye con "uv sync".
+.venv/
+venv/
+env/
+
+# Pesos de modelos: ultralytics los descarga la primera vez.
+*.pt
+*.onnx
+*.mlpackage/
+
+# Salidas generadas. El notebook recrea la carpeta con
+# os.makedirs(..., exist_ok=True)
+images_with_boxes/
+images_uploaded/
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

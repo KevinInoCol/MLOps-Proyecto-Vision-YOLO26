@@ -1,0 +1,14 @@
+.DS_Store
+__pycache__/
+*.pyc
+.git/
+.venv/
+venv/
+COMANDOS.md
+service.yaml
+gcr-service-policy.yaml
+cloudbuild.yaml
+
+# Solo para desarrollo: no tienen por que entrar en la imagen de produccion
+.devcontainer/
+Dockerfile.dev

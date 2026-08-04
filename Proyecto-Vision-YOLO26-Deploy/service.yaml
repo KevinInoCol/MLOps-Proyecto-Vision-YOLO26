@@ -1,0 +1,17 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: servicio-proyecto-vision-yolo26-kevin-inofuente
+spec:
+  template:
+    spec:
+      containers:
+        - image: us-central1-docker.pkg.dev/datapath-mlops-kevin-inofuente/repositorio-mlops-inofuente/imagen-yolo26-mlops-inofuente:latest
+          ports:
+            - containerPort: 4000
+          resources:
+            limits:
+              # PyTorch consume ~250-400 MB de RSS solo al importarse.
+              # Con 1Gi entra apretado; 2Gi da margen y evita OOM (503).
+              memory: 2Gi
+              cpu: "2"
