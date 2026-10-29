@@ -11,6 +11,11 @@
 !/Proyecto-Vision-YOLO26/
 !/Proyecto-Vision-YOLO26-Deploy/
 
+# Skills de Claude Code para los alumnos (solo skills/, NO settings.local.json)
+!/.claude/
+/.claude/*
+!/.claude/skills/
+
 # ============================================================================
 # Y dentro de esas dos carpetas, lo que tampoco se versiona:
 # ============================================================================
