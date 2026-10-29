@@ -28,4 +28,4 @@ ENV YOLO_CONFIG_DIR=/tmp/ultralytics
 
 WORKDIR /ws/code
 
-ENV PYTHONPATH=/ws/code/src
+ENV PYTHONPATH=/ws/code/application

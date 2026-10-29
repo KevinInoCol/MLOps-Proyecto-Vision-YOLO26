@@ -25,7 +25,7 @@ gcloud run services set-iam-policy servicio-proyecto-vision-yolo26-kevin-inofuen
 # Prueba local (opcional, en tu Mac)
 
 uv sync
-uv run uvicorn src.main:app --reload --port 8080
+uv run uvicorn application.main:app --reload --port 8080
 
 Luego abre http://localhost:8080/docs
 

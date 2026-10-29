@@ -58,4 +58,4 @@ uv run jupyter notebook server.ipynb
 # NOTA 4 — Para la carpeta de despliegue, el flujo es el mismo cambiando el cd:
 #       cd MLOps-Proyecto-Vision-YOLO26/Proyecto-Vision-YOLO26-Deploy
 #       uv sync
-#       uv run uvicorn src.main:app --reload --port 8080
+#       uv run uvicorn application.main:app --reload --port 8080

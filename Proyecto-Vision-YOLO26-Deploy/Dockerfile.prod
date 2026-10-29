@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Capa de dependencias primero: Docker la cachea mientras uv.lock no cambie,
-# asi editar src/main.py no reinstala torch.
+# asi editar application/main.py no reinstala torch.
 # --frozen falla el build si uv.lock esta desincronizado de pyproject.toml.
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen
@@ -36,4 +36,4 @@ COPY . .
 
 EXPOSE 4000
 
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "4000", "--proxy-headers"]
+CMD ["uvicorn", "application.main:app", "--host", "0.0.0.0", "--port", "4000", "--proxy-headers"]
